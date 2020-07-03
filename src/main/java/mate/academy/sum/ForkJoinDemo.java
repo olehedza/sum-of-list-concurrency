@@ -28,13 +28,12 @@ public class ForkJoinDemo extends RecursiveTask<Long> {
                 sum += list.get(i);
             }
             return sum;
-        } else {
-            int middle = (to + from) / 2;
-            ForkJoinDemo firstHalf = new ForkJoinDemo(from, middle);
-            firstHalf.fork();
-            ForkJoinDemo secondHalf = new ForkJoinDemo(middle + 1, to);
-            long secondValue = secondHalf.compute();
-            return firstHalf.join() + secondValue;
         }
+        int middle = (to + from) / 2;
+        ForkJoinDemo firstHalf = new ForkJoinDemo(from, middle);
+        firstHalf.fork();
+        ForkJoinDemo secondHalf = new ForkJoinDemo(middle + 1, to);
+        long secondValue = secondHalf.compute();
+        return firstHalf.join() + secondValue;
     }
 }
